@@ -1,12 +1,17 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CourseServiceImplementation implements CourseService {
     private final CourseRepository courseRepository;
 
+    @Autowired
     public CourseServiceImplementation(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
@@ -23,7 +28,7 @@ public class CourseServiceImplementation implements CourseService {
 
     @Override
     public List<Course> findByTitleWithPrefix(String prefix) {
-        return null;
+        return courseRepository.findByTitleWithPrefix(prefix);
     }
 
     @Override

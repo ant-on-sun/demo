@@ -1,7 +1,10 @@
 package com.example.demo.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class CoursesDB {
 
     private List<Course> coursesDB;

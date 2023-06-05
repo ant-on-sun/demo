@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import org.springframework.stereotype.Component;
+
 public class Course {
     private Long id;
     private String author;
