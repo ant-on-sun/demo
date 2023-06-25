@@ -2,10 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImplementation implements CourseService {
@@ -23,12 +23,14 @@ public class CourseServiceImplementation implements CourseService {
 
     @Override
     public Course findById(Long id) {
-        return courseRepository.findById(id);
+        Optional<Course> optionalCourse = courseRepository.findById(id);
+        Course course = optionalCourse.orElseThrow();
+        return course;
     }
 
     @Override
     public List<Course> findByTitleWithPrefix(String prefix) {
-        return courseRepository.findByTitleWithPrefix(prefix);
+        return courseRepository.findByTitleLike(prefix + "%");
     }
 
     @Override

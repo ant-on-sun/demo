@@ -1,9 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseService {
 
