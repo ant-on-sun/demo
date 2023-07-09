@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Course;
+import com.example.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,12 @@ import java.util.Optional;
 @Service
 public class CourseServiceImplementation implements CourseService {
     private final CourseRepository courseRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CourseServiceImplementation(CourseRepository courseRepository) {
+    public CourseServiceImplementation(CourseRepository courseRepository, UserRepository userRepository) {
         this.courseRepository = courseRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -42,5 +45,24 @@ public class CourseServiceImplementation implements CourseService {
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
     }
+
+    @Override
+    public Course assignUser(Long courseId, Long userId) {
+        User user = userRepository.getReferenceById(userId);
+        Course course = courseRepository.getReferenceById(courseId);
+        user.getCourses().add(course);
+        course.getUsers().add(user);
+        return courseRepository.save(course);
+    }
+
+    @Override
+    public Course unassignUser(Long courseId, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        user.getCourses().remove(course);
+        course.getUsers().remove(user);
+        return courseRepository.save(course);
+    }
+
 
 }

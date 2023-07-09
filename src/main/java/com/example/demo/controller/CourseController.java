@@ -2,14 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Course;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static java.util.Objects.requireNonNullElse;
 
@@ -38,7 +34,7 @@ public class CourseController {
                              @Valid @RequestBody CourseRequestToUpdate request) {
         Course course = courseService.findById(id);
         course.setTitle(request.getTitle());
-        course.setAuthor(request.getAuthor());
+        course.setDateAuthorCreation(request.getAuthor());
         courseService.save(course);
     }
 
@@ -57,6 +53,18 @@ public class CourseController {
     @DeleteMapping("/{id}")
     public void deleteCourse(@PathVariable Long id) {
         courseService.deleteById(id);
+    }
+
+    @PostMapping("/{courseId}/assign")
+    public Course assignUser(@PathVariable("courseId") Long courseId,
+                             @RequestParam("userId") Long userId) {
+        return courseService.assignUser(courseId, userId);
+    }
+
+    @PostMapping("/{courseId}/unassign")
+    public Course unassignUser(@PathVariable("courseId") Long courseId,
+                               @RequestParam("userId") Long userId) {
+        return courseService.unassignUser(courseId, userId);
     }
 
 //    @ExceptionHandler

@@ -17,4 +17,7 @@ public interface CourseService {
 
     void deleteById(Long id);
 
+    Course assignUser(Long courseId, Long userId);
+
+    Course unassignUser(Long courseId, Long userId);
 }
