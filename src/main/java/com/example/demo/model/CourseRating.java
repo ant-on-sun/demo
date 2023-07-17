@@ -1,18 +1,21 @@
 package com.example.demo.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@IdClass(CourseRatingId.class)
 @Table(name = "courses_rating")
 public class CourseRating {
-    @Id
-    @Column(name = "user_id")
-    private Long userId;
-    @Id
-    @Column(name = "course_id")
-    private Long courseId;
+//    @Id
+//    @Column(name = "user_id")
+//    private Long userId;
+//    @Id
+//    @Column(name = "course_id")
+//    private Long courseId;
+    @EmbeddedId
+    private CourseRatingId courseRatingId;
     @Column
     private int rating; //rating of the course from the user
     @Column
@@ -20,26 +23,19 @@ public class CourseRating {
 
     public CourseRating() {}
 
-    public CourseRating(Long userId, Long courseId, int rating) {
-        this.userId = userId;
-        this.courseId = courseId;
+    //@Autowired
+    public CourseRating(CourseRatingId courseRatingId, int rating, int grade) {
+        this.courseRatingId = courseRatingId;
         this.rating = rating;
+        this.grade = grade;
     }
 
-    public Long getUserId() {
-        return userId;
+    public CourseRatingId getCourseRatingId() {
+        return courseRatingId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
+    public void setCourseRatingId(CourseRatingId courseRatingId) {
+        this.courseRatingId = courseRatingId;
     }
 
     public int getRating() {
@@ -63,12 +59,12 @@ public class CourseRating {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CourseRating that = (CourseRating) o;
-        return Objects.equals(getUserId(), that.getUserId()) &&
-                Objects.equals(getCourseId(), that.getCourseId());
+        return Objects.equals(courseRatingId.getUserId(), that.courseRatingId.getUserId()) &&
+                Objects.equals(courseRatingId.getCourseId(), that.courseRatingId.getCourseId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUserId(), getCourseId());
+        return Objects.hash(courseRatingId.getUserId(), courseRatingId.getCourseId());
     }
 }

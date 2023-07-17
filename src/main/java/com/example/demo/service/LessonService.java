@@ -1,7 +1,6 @@
-package com.example.demo.controller;
+package com.example.demo.service;
 
 import com.example.demo.dto.LessonDto;
-import com.example.demo.model.Lesson;
 import java.util.List;
 
 public interface LessonService {

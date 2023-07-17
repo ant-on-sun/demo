@@ -1,9 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.CourseDto;
 import com.example.demo.model.Course;
+import com.example.demo.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -20,49 +24,52 @@ public class CourseController {
     }
 
     @GetMapping("")
-    public List<Course> courseTable() {
+    public List<CourseDto> courseTable(HttpSession session) {
         return courseService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Course getCourse(@PathVariable("id") Long id) {
+    public CourseDto getCourse(@PathVariable("id") Long id) {
         return courseService.findById(id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{id}")
     public void updateCourse(@PathVariable("id") Long id,
                              @Valid @RequestBody CourseRequestToUpdate request) {
-        Course course = courseService.findById(id);
-        course.setTitle(request.getTitle());
-        course.setDateAuthorCreation(request.getAuthor());
-        courseService.save(course);
+        CourseDto courseDto = courseService.findById(id);
+        courseDto.setTitle(request.getTitle());
+        courseDto.setDateAuthorUpdate(request.getAuthor());
+        courseService.save(courseDto);
     }
 
     @GetMapping("/filter")
-    public List<Course> getCoursesByTitlePrefix(@RequestParam(name = "titlePrefix", required = false)
+    public List<CourseDto> getCoursesByTitlePrefix(@RequestParam(name = "titlePrefix", required = false)
                                                             String titlePrefix) {
         return courseService.findByTitleWithPrefix(requireNonNullElse(titlePrefix, ""));
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping
-    public Course createCourse(@RequestBody CourseRequestToCreate request) {
-        Course course = new Course(request.getAuthor(), request.getTitle());
-        return courseService.save(course);
+    public CourseDto createCourse(@RequestBody CourseRequestToCreate request) {
+        CourseDto courseDto = new CourseDto(request.getTitle(), request.getAuthor());
+        return courseService.save(courseDto);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{id}")
     public void deleteCourse(@PathVariable Long id) {
         courseService.deleteById(id);
     }
 
     @PostMapping("/{courseId}/assign")
-    public Course assignUser(@PathVariable("courseId") Long courseId,
+    public CourseDto assignUser(@PathVariable("courseId") Long courseId,
                              @RequestParam("userId") Long userId) {
         return courseService.assignUser(courseId, userId);
     }
 
     @PostMapping("/{courseId}/unassign")
-    public Course unassignUser(@PathVariable("courseId") Long courseId,
+    public CourseDto unassignUser(@PathVariable("courseId") Long courseId,
                                @RequestParam("userId") Long userId) {
         return courseService.unassignUser(courseId, userId);
     }

@@ -1,53 +1,37 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import org.hibernate.annotations.Type;
-
-import javax.persistence.*;
 import java.sql.Blob;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table(name = "topics")
-public class Topic {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class TopicDto {
     private Long id;
-    @Column
     private String title;
-    @Column
     private String description;
-    @Column(name = "date_author_creation")
     private String dateAuthorCreation;
-    @Column(name = "date_author_update")
     private String dateAuthorUpdate;
-    @Column(name = "date_author_deletion")
     private String dateAuthorDeletion;
-    @Type(type = "org.hibernate.type.BinaryType")
-    @Column
     private Blob content;
+    private Long moduleId;
+    private Set<Long> testIds;
 
-    @ManyToOne(optional = false)
-    private Module module;
-
-    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Test> tests;
-
-    public Topic() {
-
+    public TopicDto() {
     }
 
-    public Topic(Long id,
-                 String title,
-                 String description,
-                 String dateAuthorCreation,
-                 String dateAuthorUpdate,
-                 String dateAuthorDeletion,
-                 Blob content,
-                 Module module,
-                 Set<Test> tests) {
+    public TopicDto(Long moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    public TopicDto(Long id,
+                    String title,
+                    String description,
+                    String dateAuthorCreation,
+                    String dateAuthorUpdate,
+                    String dateAuthorDeletion,
+                    Blob content,
+                    Long moduleId,
+                    Set<Long> testIds) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -55,8 +39,8 @@ public class Topic {
         this.dateAuthorUpdate = dateAuthorUpdate;
         this.dateAuthorDeletion = dateAuthorDeletion;
         this.content = content;
-        this.module = module;
-        this.tests = tests;
+        this.moduleId = moduleId;
+        this.testIds = testIds;
     }
 
     public Long getId() {
@@ -115,32 +99,33 @@ public class Topic {
         this.content = content;
     }
 
-    public Module getModule() {
-        return module;
+    public Long getModuleId() {
+        return moduleId;
     }
 
-    public void setModule(Module module) {
-        this.module = module;
+    public void setModuleId(Long moduleId) {
+        this.moduleId = moduleId;
     }
 
-    public Set<Test> getTests() {
-        return tests;
+    public Set<Long> getTestIds() {
+        return testIds;
     }
 
-    public void setTests(Set<Test> tests) {
-        this.tests = tests;
+    public void setTestIds(Set<Long> testIds) {
+        this.testIds = testIds;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Topic topic = (Topic) o;
-        return id.equals(topic.id);
+        TopicDto topicDto = (TopicDto) o;
+        return id.equals(topicDto.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

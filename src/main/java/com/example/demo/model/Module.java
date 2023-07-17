@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "modules")
@@ -26,10 +27,29 @@ public class Module {
     private Course course;
 
     @OneToMany(mappedBy = "module", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Topic> topics = new ArrayList<>();
+    //private List<Topic> topics = new ArrayList<>();
+    private Set<Topic> topics;
 
     public Module() {
 
+    }
+
+    public Module(Long id,
+                  String title,
+                  String description,
+                  String dateAuthorCreation,
+                  String dateAuthorUpdate,
+                  String dateAuthorDeletion,
+                  Course course,
+                  Set<Topic> topics) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.dateAuthorCreation = dateAuthorCreation;
+        this.dateAuthorUpdate = dateAuthorUpdate;
+        this.dateAuthorDeletion = dateAuthorDeletion;
+        this.course = course;
+        this.topics = topics;
     }
 
     public Long getId() {
@@ -86,6 +106,14 @@ public class Module {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Set<Topic> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(Set<Topic> topics) {
+        this.topics = topics;
     }
 
     @Override

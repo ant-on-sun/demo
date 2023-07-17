@@ -1,7 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.User;
-
 import java.util.Objects;
 
 public class LessonDto {

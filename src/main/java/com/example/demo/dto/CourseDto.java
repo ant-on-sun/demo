@@ -1,59 +1,43 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.demo.model.Module;
+import com.example.demo.model.User;
+
 import java.util.Objects;
 import java.util.Set;
 
-@Entity
-@Table(name = "courses")
-public class Course {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CourseDto {
     private Long id;
-    @Column
     private String title;
-    @Column
     private String description;
-    @Column(name = "date_author_creation")
     private String dateAuthorCreation;
-    @Column(name = "date_author_update")
     private String dateAuthorUpdate;
-    @Column(name = "date_author_deletion")
     private String dateAuthorDeletion;
-    @Column(name = "completion_time")
     private String completionTime;
-    @Column
     private String tag;
-    @Column
     private String category;
+    private Set<Long> moduleIds;
+    private Set<Long> userIds;
 
-    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Lesson> lessons = new ArrayList<>();
-
-    @OneToMany(mappedBy = "course", orphanRemoval = true, cascade = CascadeType.ALL)
-    private Set<Module> modules;
-
-    @ManyToMany
-    private Set<User> users;
-
-    public Course() {
+    public CourseDto() {
     }
-    public Course(String dateAuthorCreation, String title) {
-        this.dateAuthorCreation = dateAuthorCreation;
+
+    public CourseDto(String title, String dateAuthorCreation) {
         this.title = title;
-    }
-    public Course(Long id, String dateAuthorCreation, String title) {
-        this.id = id;
         this.dateAuthorCreation = dateAuthorCreation;
-        this.title = title;
     }
 
-    public Course(Long id, String title, String description, String dateAuthorCreation,
-                  String dateAuthorUpdate, String dateAuthorDeletion, String completionTime,
-                  String tag, String category, List<Lesson> lessons, Set<Module> modules,
-                  Set<User> users) {
+    public CourseDto(Long id,
+                     String title,
+                     String description,
+                     String dateAuthorCreation,
+                     String dateAuthorUpdate,
+                     String dateAuthorDeletion,
+                     String completionTime,
+                     String tag,
+                     String category,
+                     Set<Long> moduleIds,
+                     Set<Long> userIds) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -63,14 +47,8 @@ public class Course {
         this.completionTime = completionTime;
         this.tag = tag;
         this.category = category;
-        this.lessons = lessons;
-        this.modules = modules;
-        this.users = users;
-    }
-
-    public void addLesson(Lesson lesson) {
-        lesson.setCourse(this);
-        this.lessons.add(lesson);
+        this.moduleIds = moduleIds;
+        this.userIds = userIds;
     }
 
     public Long getId() {
@@ -81,14 +59,6 @@ public class Course {
         this.id = id;
     }
 
-    public String getDateAuthorCreation() {
-        return dateAuthorCreation;
-    }
-
-    public void setDateAuthorCreation(String dateAuthorCreation) {
-        this.dateAuthorCreation = dateAuthorCreation;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -97,28 +67,20 @@ public class Course {
         this.title = title;
     }
 
-    public List<Lesson> getLessons() {
-        return lessons;
-    }
-
-    public void setLessons(List<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDateAuthorCreation() {
+        return dateAuthorCreation;
+    }
+
+    public void setDateAuthorCreation(String dateAuthorCreation) {
+        this.dateAuthorCreation = dateAuthorCreation;
     }
 
     public String getDateAuthorUpdate() {
@@ -161,20 +123,28 @@ public class Course {
         this.category = category;
     }
 
-    public Set<Module> getModules() {
-        return modules;
+    public Set<Long> getModuleIds() {
+        return moduleIds;
     }
 
-    public void setModules(Set<Module> modules) {
-        this.modules = modules;
+    public void setModuleIds(Set<Long> moduleIds) {
+        this.moduleIds = moduleIds;
+    }
+
+    public Set<Long> getUserIds() {
+        return userIds;
+    }
+
+    public void setUserIds(Set<Long> userIds) {
+        this.userIds = userIds;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return id.equals(course.id);
+        CourseDto courseDto = (CourseDto) o;
+        return id.equals(courseDto.id);
     }
 
     @Override

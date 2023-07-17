@@ -277,3 +277,53 @@ databaseChangeLog:
               - column:
                   name: grade
                   type: int
+  - changeSet:
+      id: '2023071201'
+      author: 'Anton Vorobyev'
+      changes:
+        - createTable:
+            tableName: 'roles'
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: roles_id_pk
+              - column:
+                  name: name
+                  type: varchar(255)
+  - changeSet:
+      id: '2023071202'
+      author: 'Anton Vorobyev'
+      changes:
+        - createTable:
+            tableName: 'users_roles'
+            columns:
+              - column:
+                  name: users_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: roles_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: '2023071501'
+      author: 'Anton Vorobyev'
+      changes:
+        - createTable:
+            tableName: 'roles_user_principal'
+            columns:
+              - column:
+                  name: user_principal_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+              - column:
+                  name: roles_id
+                  type: bigint
+                  constraints:
+                    nullable: false

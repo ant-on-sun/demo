@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.repository;
 
 import com.example.demo.dto.LessonDto;
 import com.example.demo.model.Lesson;

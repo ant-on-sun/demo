@@ -1,23 +1,24 @@
-package com.example.demo.controller;
+package com.example.demo.service;
 
 import com.example.demo.dto.LessonDto;
 import com.example.demo.model.Course;
 import com.example.demo.model.Lesson;
+import com.example.demo.repository.CourseRepository;
+import com.example.demo.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class LessonServiceImplementation implements LessonService {
+public class LessonServiceImp implements LessonService {
 
     private final LessonRepository lessonRepository;
     private final CourseRepository courseRepository;
 
     @Autowired
-    public LessonServiceImplementation(LessonRepository lessonRepository, CourseRepository courseRepository){
+    public LessonServiceImp(LessonRepository lessonRepository, CourseRepository courseRepository){
         this.lessonRepository = lessonRepository;
         this.courseRepository = courseRepository;
     }

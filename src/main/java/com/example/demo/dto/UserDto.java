@@ -1,72 +1,42 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import javax.persistence.*;
-import java.util.List;
+import java.sql.Blob;
 import java.util.Objects;
 import java.util.Set;
-import java.sql.Blob;
-import org.hibernate.annotations.Type;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDto {
     private Long id;
-    @Column
     private String nickname;
-    @Column
     private String password;
-    @Column
     private String username;
-    @Column
     private String email;
-    @Column
     private String phone;
-    @Type(type = "org.hibernate.type.BinaryType")
-    @Column
     private Blob avatar;
-    @Column(name = "registration_date")
     private String registrationDate;
-    @Column(name = "date_author_update")
     private String dateAuthorUpdate;
-    @Column(name = "date_author_deletion")
     private String dateAuthorDeletion;
-    @Column(name = "access_rights")
     private String accessRights;
-    @Column(name = "communication_channels")
     private String communicationChannels;
-    @Column
     private String achievements;
+    private Set<Long> courseIds;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Course> courses;
-
-    @ManyToMany
-    private Set<Role> roles;
-
-    public User() {
+    public UserDto() {
     }
 
-    public User(String username) {
-        this.username = username;
-    }
-
-    public User(Long id,
-                String nickname,
-                String password,
-                String username,
-                String email,
-                String phone,
-                Blob avatar,
-                String registrationDate,
-                String dateAuthorUpdate,
-                String dateAuthorDeletion,
-                String accessRights,
-                String communicationChannels,
-                String achievements,
-                Set<Course> courses) {
+    public UserDto(Long id,
+                   String nickname,
+                   String password,
+                   String username,
+                   String email,
+                   String phone,
+                   Blob avatar,
+                   String registrationDate,
+                   String dateAuthorUpdate,
+                   String dateAuthorDeletion,
+                   String accessRights,
+                   String communicationChannels,
+                   String achievements,
+                   Set<Long> courseIds) {
         this.id = id;
         this.nickname = nickname;
         this.password = password;
@@ -80,15 +50,7 @@ public class User {
         this.accessRights = accessRights;
         this.communicationChannels = communicationChannels;
         this.achievements = achievements;
-        this.courses = courses;
-    }
-
-    public <R> User(String username, String password, List<SimpleGrantedAuthority> roles) {
-    }
-
-    public void addCourse(Course course) {
-        course.getUsers().add(this);
-        this.courses.add(course);
+        this.courseIds = courseIds;
     }
 
     public Long getId() {
@@ -195,28 +157,20 @@ public class User {
         this.achievements = achievements;
     }
 
-    public Set<Course> getCourses() {
-        return courses;
+    public Set<Long> getCourseIds() {
+        return courseIds;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setCourseIds(Set<Long> courseIds) {
+        this.courseIds = courseIds;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id.equals(user.id);
+        UserDto userDto = (UserDto) o;
+        return id.equals(userDto.id);
     }
 
     @Override

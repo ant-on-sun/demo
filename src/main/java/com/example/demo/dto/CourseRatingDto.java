@@ -1,21 +1,23 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import java.io.Serializable;
+import com.example.demo.model.CourseRating;
+
 import java.util.Objects;
 
-@Embeddable
-public class CourseRatingId implements Serializable {
-    @Column(name = "user_id", nullable = false)
+public class CourseRatingDto {
     private Long userId;
-    @Column(name = "course_id", nullable = false)
     private Long courseId;
+    private int rating;
+    private int grade;
 
-    public CourseRatingId() {}
-    public CourseRatingId(Long userId, Long courseId) {
+    public CourseRatingDto() {
+    }
+
+    public CourseRatingDto(Long userId, Long courseId, int rating, int grade) {
         this.userId = userId;
         this.courseId = courseId;
+        this.rating = rating;
+        this.grade = grade;
     }
 
     public Long getUserId() {
@@ -34,11 +36,27 @@ public class CourseRatingId implements Serializable {
         this.courseId = courseId;
     }
 
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CourseRatingId that = (CourseRatingId) o;
+        CourseRatingDto that = (CourseRatingDto) o;
         return Objects.equals(getUserId(), that.getUserId()) &&
                 Objects.equals(getCourseId(), that.getCourseId());
     }
