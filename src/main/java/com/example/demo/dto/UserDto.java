@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import java.sql.Blob;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
@@ -122,7 +123,8 @@ public class UserDto {
     }
 
     public void setDateAuthorUpdate(String dateAuthorUpdate) {
-        this.dateAuthorUpdate = dateAuthorUpdate;
+        Date date = new Date();
+        this.dateAuthorUpdate = dateAuthorUpdate + " ( " + date.toString() + " ) ";
     }
 
     public String getDateAuthorDeletion() {
@@ -130,7 +132,8 @@ public class UserDto {
     }
 
     public void setDateAuthorDeletion(String dateAuthorDeletion) {
-        this.dateAuthorDeletion = dateAuthorDeletion;
+        Date date = new Date();
+        this.dateAuthorDeletion = dateAuthorDeletion + " ( " + date.toString() + " ) ";
     }
 
     public String getAccessRights() {

@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 public class CourseRequestToCreate {
     @NotBlank(message = "Course author has to be filled")
