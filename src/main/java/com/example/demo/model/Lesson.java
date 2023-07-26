@@ -13,7 +13,7 @@ public class Lesson {
     @Column
     private String title;
     @Lob
-    @Type(type = "org.hibernate.type.TextType")
+    //@Type(type = "org.hibernate.type.TextType")
     @Column
     private String text;
 
