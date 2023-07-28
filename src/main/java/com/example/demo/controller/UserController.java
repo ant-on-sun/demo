@@ -5,6 +5,7 @@ import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -30,8 +31,11 @@ public class UserController {
 
     @Secured("ROLE_ADMIN")
     @GetMapping("/{id}")
-    public UserDto getUser(@PathVariable("id") Long id) {
-        return userService.findById(id);
+    public ModelAndView getUser(@PathVariable("id") Long id) {
+        UserDto userDto = userService.findById(id);
+        ModelAndView modelAndView = new ModelAndView("user_form");
+        modelAndView.addObject("user", userDto);
+        return modelAndView;
     }
 
     @Secured("ROLE_ADMIN")

@@ -20,6 +20,7 @@ public class UserDto {
     private String communicationChannels;
     private String achievements;
     private Set<Long> courseIds;
+    private Set<String> roles;
 
     public UserDto() {
     }
@@ -37,7 +38,8 @@ public class UserDto {
                    String accessRights,
                    String communicationChannels,
                    String achievements,
-                   Set<Long> courseIds) {
+                   Set<Long> courseIds,
+                   Set<String> roles) {
         this.id = id;
         this.nickname = nickname;
         this.password = password;
@@ -52,6 +54,7 @@ public class UserDto {
         this.communicationChannels = communicationChannels;
         this.achievements = achievements;
         this.courseIds = courseIds;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -166,6 +169,14 @@ public class UserDto {
 
     public void setCourseIds(Set<Long> courseIds) {
         this.courseIds = courseIds;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 
     @Override
