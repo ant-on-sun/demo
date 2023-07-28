@@ -34,4 +34,9 @@ public class HandleErrorService {
         return new ResponseEntity<>(new ApiError(OffsetDateTime.now(), ex.getMessage()), HttpStatus.FORBIDDEN);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<ApiError> badRequestExceptionHandler(UserAlreadyExistException ex) {
+        return new ResponseEntity<>(new ApiError(OffsetDateTime.now(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
 }

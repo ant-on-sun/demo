@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.errorhandlers.UserAlreadyExistException;
 import com.example.demo.model.Course;
 import com.example.demo.model.Role;
 import com.example.demo.model.User;
@@ -63,6 +64,15 @@ public class UserServiceImp implements UserService{
     @Override
     public void deleteById(Long id) {
 
+    }
+
+    @Override
+    public UserDto createUser(UserDto userDto) {
+        Optional<User> userRepo = userRepository.findByUsername(userDto.getUsername());
+        if (userRepo.isPresent()) {
+            throw new UserAlreadyExistException("User with such username already exist. Try another username.");
+        }
+        return save(userDto);
     }
 
     UserDto userToUserDto(User user) {

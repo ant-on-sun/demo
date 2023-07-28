@@ -12,6 +12,7 @@ public interface UserService {
     UserDto findById(Long id);
     UserDto findByUsername(String username);
     UserDto save(UserDto userDto);
+    UserDto createUser(UserDto userDto);
     void deleteById(Long id);
 
 }

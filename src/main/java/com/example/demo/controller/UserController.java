@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.dto.UserDto;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/admin/user")
@@ -49,14 +51,18 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@Valid @RequestBody UserRequestToCreate request) {
+    public ModelAndView createUser(@Valid @RequestBody UserRequestToCreate request) {
         UserDto userDto = new UserDto();
         userDto.setUsername(request.getUsername());
         userDto.setPassword(request.getPassword());
         userDto.setEmail(request.getEmail());
         Date date = new Date();
         userDto.setRegistrationDate(date.toString());
-        return userService.save(userDto);
+        ModelAndView modelAndView = new ModelAndView("redirect:/user_card");
+        //modelAndView.setStatus(HttpStatus.PERMANENT_REDIRECT);
+        //modelAndView.addObject("user", userDto);
+        UserDto userDtoCreated = userService.createUser(userDto);
+        return modelAndView;
     }
 
     @Secured("ROLE_ADMIN")
