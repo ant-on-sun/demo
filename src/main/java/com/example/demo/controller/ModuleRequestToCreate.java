@@ -1,20 +1,19 @@
 package com.example.demo.controller;
 
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
 
-public class UserRequestToUpdate {
-    @NotBlank(message = "Username has to be filled")
-    private String username;
+public class ModuleRequestToCreate {
+    @NotBlank(message = "Title has to be filled")
+    private String title;
     @NotBlank(message = "Author field has to be filled")
     private String author;
 
-    public String getUsername() {
-        return username;
+    public String getTitle() {
+        return title;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {

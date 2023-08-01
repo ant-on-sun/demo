@@ -81,12 +81,11 @@ class UserControllerTest {
         if (user.isPresent()) {
             userRepository.deleteById(user.get().getId());
         }
-        //assertFalse(user.isPresent());
         UserRequestToCreate userRequestToCreate = new UserRequestToCreate();
         userRequestToCreate.setUsername(testUsername);
         userRequestToCreate.setPassword(testPassword);
         userRequestToCreate.setEmail(testEmail);
-        String requestBody = new ObjectMapper().valueToTree(userRequestToCreate).toString();
+        String requestBody = new ObjectMapper().valueToTree(userRequestToCreate).toString(); //making JSON from object
 
         mvc.perform(post("/admin/user")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

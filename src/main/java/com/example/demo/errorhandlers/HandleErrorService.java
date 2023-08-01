@@ -35,7 +35,12 @@ public class HandleErrorService {
     }
 
     @ExceptionHandler
-    public ResponseEntity<ApiError> badRequestExceptionHandler(UserAlreadyExistException ex) {
+    public ResponseEntity<ApiError> badRequestUserExceptionHandler(UserAlreadyExistException ex) {
+        return new ResponseEntity<>(new ApiError(OffsetDateTime.now(), ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ApiError> badRequestModuleExceptionHandler(ModuleAlreadyExistException ex) {
         return new ResponseEntity<>(new ApiError(OffsetDateTime.now(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 

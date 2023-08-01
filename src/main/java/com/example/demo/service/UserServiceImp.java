@@ -62,11 +62,6 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public void deleteById(Long id) {
-
-    }
-
-    @Override
     public UserDto createUser(UserDto userDto) {
         Optional<User> userRepo = userRepository.findByUsername(userDto.getUsername());
         if (userRepo.isPresent()) {
@@ -75,7 +70,12 @@ public class UserServiceImp implements UserService{
         return save(userDto);
     }
 
-    UserDto userToUserDto(User user) {
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    private UserDto userToUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setNickname(user.getNickname());
@@ -91,15 +91,15 @@ public class UserServiceImp implements UserService{
         userDto.setCommunicationChannels(user.getCommunicationChannels());
         userDto.setAchievements(user.getAchievements());
         if (user.getCourses() != null) {
-            user.getCourses().stream().map(Course::getId).collect(Collectors.toSet());
+            userDto.setCourseIds(user.getCourses().stream().map(Course::getId).collect(Collectors.toSet()));
         }
         if (user.getRoles() != null) {
-            user.getRoles().stream().map(Role::getName).collect(Collectors.toSet());
+            userDto.setRoles(user.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
         }
         return userDto;
     }
 
-    User userDtoToEnrichUser(UserDto userDto, User user) {
+    private User userDtoToEnrichUser(UserDto userDto, User user) {
         if (userDto.getNickname() !=null && !userDto.getNickname().isEmpty()) {
             user.setNickname(userDto.getNickname());
         }

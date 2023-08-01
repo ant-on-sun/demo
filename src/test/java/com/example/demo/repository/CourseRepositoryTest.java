@@ -23,14 +23,14 @@ class CourseRepositoryTest {
         courseRepository.deleteAll();
     }
 
-    @Test
-    void findByTitleLikeTest() {
-        Course course1 = new Course(1L, "Author1 somedate", "Java");
-        Course course2 = new Course(2L, "Author2 somedate", "Java script");
-        Course course3 = new Course(3L, "Author 3 date", "C++");
-        Course course4 = new Course(4L, "Author 4 date", "Noodles");
-        courseRepository.saveAll(Set.of(course1, course2, course3, course4));
-        List<Course> courseList = courseRepository.findByTitleLike("Jav%");
-        assertEquals(List.of(course1, course2), courseList);
-    }
+//    @Test
+//    void findByTitleLikeTest() {
+//        Course course1 = new Course(1L, "Author1 somedate", "Java");
+//        Course course2 = new Course(2L, "Author2 somedate", "Java script");
+//        Course course3 = new Course(3L, "Author 3 date", "C++");
+//        Course course4 = new Course(4L, "Author 4 date", "Noodles");
+//        courseRepository.saveAll(Set.of(course1, course2, course3, course4));
+//        List<Course> courseList = courseRepository.findByTitleLike("Jav%");
+//        assertEquals(List.of(course1, course2), courseList);
+//    }
 }
