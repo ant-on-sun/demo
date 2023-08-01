@@ -23,7 +23,7 @@ class CourseRepositoryTest {
         courseRepository.deleteAll();
     }
 
-//    @Test
+//    @Test  //test using H2 database
 //    void findByTitleLikeTest() {
 //        Course course1 = new Course(1L, "Author1 somedate", "Java");
 //        Course course2 = new Course(2L, "Author2 somedate", "Java script");
