@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.CourseDto;
-import com.example.demo.model.Course;
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.entities.Role;
+import com.example.demo.entities.User;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.CourseService;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Set;
 
 import static java.util.Objects.requireNonNullElse;
 

@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.CourseDto;
-import com.example.demo.model.Course;
-import com.example.demo.model.Module;
-import com.example.demo.model.User;
+import com.example.demo.entities.Course;
+import com.example.demo.entities.Module;
+import com.example.demo.entities.User;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.ModuleRepository;
 import com.example.demo.repository.UserRepository;

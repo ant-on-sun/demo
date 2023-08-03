@@ -1,22 +1,21 @@
-package com.example.demo.model;
+package com.example.demo.entities;
 
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.sql.Blob;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "tests")
-public class Test {
+@Table(name = "topics")
+public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "type")
-    private String type;
-    @Column(name = "title")
+    @Column
     private String title;
-    @Column(name = "description")
+    @Column
     private String description;
     @Column(name = "date_author_creation")
     private String dateAuthorCreation;
@@ -25,14 +24,37 @@ public class Test {
     @Column(name = "date_author_deletion")
     private String dateAuthorDeletion;
     @Type(type = "org.hibernate.type.BinaryType")
-    @Column(name = "content")
+    @Column
     private Blob content;
 
     @ManyToOne(optional = false)
-    private Topic topic;
+    private Module module;
 
-    public Test() {
+    @OneToMany(mappedBy = "topic", orphanRemoval = true, cascade = CascadeType.ALL)
+    private Set<Test> tests;
 
+    public Topic() {
+
+    }
+
+    public Topic(Long id,
+                 String title,
+                 String description,
+                 String dateAuthorCreation,
+                 String dateAuthorUpdate,
+                 String dateAuthorDeletion,
+                 Blob content,
+                 Module module,
+                 Set<Test> tests) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.dateAuthorCreation = dateAuthorCreation;
+        this.dateAuthorUpdate = dateAuthorUpdate;
+        this.dateAuthorDeletion = dateAuthorDeletion;
+        this.content = content;
+        this.module = module;
+        this.tests = tests;
     }
 
     public Long getId() {
@@ -41,14 +63,6 @@ public class Test {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getTitle() {
@@ -99,20 +113,28 @@ public class Test {
         this.content = content;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Module getModule() {
+        return module;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setModule(Module module) {
+        this.module = module;
+    }
+
+    public Set<Test> getTests() {
+        return tests;
+    }
+
+    public void setTests(Set<Test> tests) {
+        this.tests = tests;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Test test = (Test) o;
-        return id.equals(test.id);
+        Topic topic = (Topic) o;
+        return id.equals(topic.id);
     }
 
     @Override

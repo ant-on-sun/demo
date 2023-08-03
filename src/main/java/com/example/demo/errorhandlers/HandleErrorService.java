@@ -49,4 +49,10 @@ public class HandleErrorService {
         return new ResponseEntity<>(new ApiError(OffsetDateTime.now(), ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<ServerError> serverErrorExceptionHandler(InternalServerError ex) {
+        return new ResponseEntity<>(new ServerError(OffsetDateTime.now(),
+                ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

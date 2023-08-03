@@ -11,6 +11,8 @@ public interface UserService {
     List<UserDto> findAll();
     UserDto findById(Long id);
     UserDto findByUsername(String username);
+    UserDto changeUsername(String currentUsername, String newUsername);
+    UserDto changePassword(UserDto userDto, String password);
     UserDto save(UserDto userDto);
     UserDto createUser(UserDto userDto);
     void deleteById(Long id);

@@ -1,6 +1,4 @@
-package com.example.demo.model;
-
-import org.springframework.beans.factory.annotation.Autowired;
+package com.example.demo.entities;
 
 import javax.persistence.*;
 import java.util.Objects;

@@ -327,3 +327,27 @@ databaseChangeLog:
                   type: bigint
                   constraints:
                     nullable: false
+  - changeSet:
+      id: '2023080301'
+      author: 'Anton Vorobyev'
+      changes:
+        - createTable:
+            tableName: 'avatar_images'
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: avatar_images_id_pk
+              - column:
+                  name: content_type
+                  type: varchar(255)
+              - column:
+                  name: filename
+                  type: varchar(255)
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    nullable: false

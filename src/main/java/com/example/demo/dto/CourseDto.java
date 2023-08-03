@@ -1,8 +1,5 @@
 package com.example.demo.dto;
 
-import com.example.demo.model.Module;
-import com.example.demo.model.User;
-
 import java.util.Objects;
 import java.util.Set;
 

@@ -9,6 +9,9 @@ public class UserRequestToUpdate {
     @NotBlank(message = "Author field has to be filled")
     private String author;
 
+    private String newUsername;
+    private String password;
+
     public String getUsername() {
         return username;
     }
@@ -23,5 +26,21 @@ public class UserRequestToUpdate {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getNewUsername() {
+        return newUsername;
+    }
+
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
     }
 }

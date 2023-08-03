@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entities;
 
 import org.hibernate.annotations.Type;
 import javax.persistence.*;

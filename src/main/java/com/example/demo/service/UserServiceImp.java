@@ -2,9 +2,9 @@ package com.example.demo.service;
 
 import com.example.demo.dto.UserDto;
 import com.example.demo.errorhandlers.UserAlreadyExistException;
-import com.example.demo.model.Course;
-import com.example.demo.model.Role;
-import com.example.demo.model.User;
+import com.example.demo.entities.Course;
+import com.example.demo.entities.Role;
+import com.example.demo.entities.User;
 import com.example.demo.repository.UserPrincipalRepository;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +44,22 @@ public class UserServiceImp implements UserService{
     @Override
     public UserDto findByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow();
+        return userToUserDto(user);
+    }
+
+    @Override
+    public UserDto changeUsername(String currentUsername, String newUsername) {
+        User user = userRepository.findByUsername(currentUsername).orElseThrow();
+        user.setUsername(newUsername);
+        userRepository.save(user);
+        return userToUserDto(user);
+    }
+
+    @Override
+    public UserDto changePassword(UserDto userDto, String password) {
+        User user = userRepository.findByUsername(userDto.getUsername()).orElseThrow();
+        user.setPassword(password);
+        userRepository.save(user);
         return userToUserDto(user);
     }
 

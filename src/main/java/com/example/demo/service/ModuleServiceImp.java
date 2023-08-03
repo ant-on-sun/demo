@@ -2,9 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.dto.ModuleDto;
 import com.example.demo.errorhandlers.ModuleAlreadyExistException;
-import com.example.demo.errorhandlers.UserAlreadyExistException;
-import com.example.demo.model.Module;
-import com.example.demo.model.Topic;
+import com.example.demo.entities.Module;
+import com.example.demo.entities.Topic;
 import com.example.demo.repository.ModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

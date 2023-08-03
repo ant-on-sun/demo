@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.CourseRatingDto;
-import com.example.demo.model.CourseRating;
-import com.example.demo.model.CourseRatingId;
+import com.example.demo.entities.CourseRating;
+import com.example.demo.entities.CourseRatingId;
 import com.example.demo.repository.CourseRatingRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.entities;
 
 import javax.persistence.*;
 import java.util.List;
@@ -45,6 +45,9 @@ public class User {
 
     @ManyToMany
     private Set<Role> roles;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private AvatarImage avatarImage;
 
     public User() {
     }
@@ -209,6 +212,14 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public AvatarImage getAvatarImage() {
+        return avatarImage;
+    }
+
+    public void setAvatarImage(AvatarImage avatarImage) {
+        this.avatarImage = avatarImage;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import com.example.demo.dto.LessonDto;
-import com.example.demo.model.Course;
-import com.example.demo.model.Lesson;
+import com.example.demo.entities.Course;
+import com.example.demo.entities.Lesson;
 import com.example.demo.repository.CourseRepository;
 import com.example.demo.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
