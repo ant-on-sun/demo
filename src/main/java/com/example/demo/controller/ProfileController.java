@@ -7,6 +7,10 @@ import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +35,14 @@ public class ProfileController {
         this.userService = userService;
     }
 
+    //For testing
+    //@PreAuthorize("isAuthenticated()") //access for authenticated users only
+    @GetMapping("")
+    public ModelAndView userProfile() {
+        ModelAndView modelAndView = new ModelAndView("user_avatar");
+        return modelAndView;
+    }
+
     @PreAuthorize("isAuthenticated()") //access for authenticated users only
     @PutMapping("/{id}")
     public UserDto updateUsernameOrPassword(@PathVariable("id") Long id,
@@ -46,7 +58,7 @@ public class ProfileController {
         return userDto;
     }
 
-    @PreAuthorize("isAuthenticated()") //access for authenticated users only
+    //@PreAuthorize("isAuthenticated()") //access for authenticated users only
     @PostMapping("/avatar")
     public String updateAvatarImage(Authentication auth, @RequestParam("avatar") MultipartFile avatar) {
         logger.info("File name {}, file content type {}, file size {}",
@@ -57,9 +69,24 @@ public class ProfileController {
             logger.info("", ex);
             throw new InternalServerError("Can't save avatar file on server, IOException: " + ex);
         }
-        //ModelAndView modelAndView = new ModelAndView("user_avatar");
-        //return modelAndView;
         return "Success";
+    }
+
+    @GetMapping("/avatar")
+    public ResponseEntity<byte[]> avatarImage(Authentication auth) throws ChangeSetPersister.NotFoundException {
+        String contentType = avatarStorageService.getContentTypeByUser(auth.getName())
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        byte[] data = avatarStorageService.getAvatarImageByUser(auth.getName())
+                .orElseThrow(ChangeSetPersister.NotFoundException::new);
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .body(data);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Void> notFoundExceptionHandler(ChangeSetPersister.NotFoundException ex) {
+        return ResponseEntity.notFound().build();
     }
 
 }

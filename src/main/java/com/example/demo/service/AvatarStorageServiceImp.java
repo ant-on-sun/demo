@@ -62,4 +62,24 @@ public class AvatarStorageServiceImp implements AvatarStorageService {
         }
     }
 
+    @Override
+    public Optional<String> getContentTypeByUser(String username) {
+        return avatarImageRepository.findByUsername(username)
+                .map(AvatarImage::getContentType);
+    }
+
+    @Override
+    public Optional<byte[]> getAvatarImageByUser(String username) {
+        return avatarImageRepository.findByUsername(username)
+                .map(AvatarImage::getFilename)
+                .map(filename -> {
+                    try {
+                        return Files.readAllBytes(Path.of(path, filename));
+                    } catch (IOException ex) {
+                        logger.error("Can't read file {}", filename, ex);
+                        throw new IllegalStateException(ex);
+                    }
+                });
+    }
+
 }
