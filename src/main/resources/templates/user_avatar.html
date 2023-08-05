@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Add user avatar</title>
 </head>
 <body>
-<form method="post" action="profile/avatar" enctype="multipart/form-data">
+<form method="post" action="/profile/avatar" enctype="multipart/form-data">
     <div>
         <label for="avatar">Select avatar picture to upload</label>
         <input id="avatar" name="avatar" type="file"/>

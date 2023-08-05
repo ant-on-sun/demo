@@ -36,7 +36,7 @@ public class ProfileController {
     }
 
     //For testing
-    //@PreAuthorize("isAuthenticated()") //access for authenticated users only
+    @PreAuthorize("isAuthenticated()") //access for authenticated users only
     @GetMapping("")
     public ModelAndView userProfile() {
         ModelAndView modelAndView = new ModelAndView("user_avatar");
@@ -58,7 +58,7 @@ public class ProfileController {
         return userDto;
     }
 
-    //@PreAuthorize("isAuthenticated()") //access for authenticated users only
+    @PreAuthorize("isAuthenticated()") //access for authenticated users only
     @PostMapping("/avatar")
     public String updateAvatarImage(Authentication auth, @RequestParam("avatar") MultipartFile avatar) {
         logger.info("File name {}, file content type {}, file size {}",
