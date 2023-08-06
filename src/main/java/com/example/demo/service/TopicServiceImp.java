@@ -7,6 +7,7 @@ import com.example.demo.entities.Topic;
 import com.example.demo.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +24,7 @@ public class TopicServiceImp implements TopicService {
     }
 
     @Override
+    @Transactional
     public List<TopicDto> findAll() {
         List<TopicDto> topicDtoList = topicRepository.findAll().stream()
                 .map(t -> topicToTopicDto(t)).collect(Collectors.toList());
@@ -30,12 +32,14 @@ public class TopicServiceImp implements TopicService {
     }
 
     @Override
+    @Transactional
     public TopicDto findById(Long id) {
         Topic topic = topicRepository.findById(id).orElseThrow();
         return topicToTopicDto(topic);
     }
 
     @Override
+    @Transactional
     public TopicDto findByTitle(String title) {
         Topic topic = topicRepository.findByTitle(title).orElseThrow();
         return topicToTopicDto(topic);
